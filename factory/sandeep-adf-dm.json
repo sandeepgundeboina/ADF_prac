@@ -1,0 +1,9 @@
+{
+	"name": "sandeep-adf-dm",
+	"location": "southindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "fcd20161-f611-4c17-96d5-9a406bd4a968",
+		"tenantId": "d7a555ca-c9d9-4b03-a135-c127dcbd1586"
+	}
+}
