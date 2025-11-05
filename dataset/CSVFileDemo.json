@@ -10,6 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
+				"fileName": "Carrer.csv",
 				"folderPath": "input",
 				"container": "sandeepcon"
 			},

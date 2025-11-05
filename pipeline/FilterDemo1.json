@@ -1,0 +1,62 @@
+{
+	"name": "FilterDemo1",
+	"properties": {
+		"activities": [
+			{
+				"name": "LookupFilterDemo",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"dataset": {
+						"referenceName": "ds_player",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "FilterDemo",
+				"type": "Filter",
+				"dependsOn": [
+					{
+						"activity": "LookupFilterDemo",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('LookupFilterDemo').output.value",
+						"type": "Expression"
+					},
+					"condition": {
+						"value": "@or(equals(item().Player, 'Kohli'),equals(item().Player,'Sachin'))\n",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"annotations": []
+	}
+}
