@@ -1,0 +1,29 @@
+{
+	"name": "ds_player",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage_csv",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "player.csv",
+				"folderPath": "input",
+				"container": "sandeepcon"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Player",
+				"type": "String"
+			}
+		]
+	}
+}
