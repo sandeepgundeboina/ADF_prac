@@ -5,6 +5,9 @@
 		"factoryName": {
 			"value": "sandeep-adf-dm"
 		},
+		"AzureBlobStorageFilterDemo_connectionString": {
+			"value": ""
+		},
 		"AzureBlobStorage_csv_connectionString": {
 			"value": ""
 		}

@@ -7,6 +7,10 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "sandeep-adf-dm"
 		},
+		"AzureBlobStorageFilterDemo_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorageFilterDemo'"
+		},
 		"AzureBlobStorage_csv_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage_csv'"
@@ -37,6 +41,9 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"AzureBlobStorageFilterDemo_connectionString": {
+						"value": "[parameters('AzureBlobStorageFilterDemo_connectionString')]"
 					},
 					"AzureBlobStorage_csv_connectionString": {
 						"value": "[parameters('AzureBlobStorage_csv_connectionString')]"

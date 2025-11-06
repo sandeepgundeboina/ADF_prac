@@ -7,6 +7,10 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "sandeep-adf-dm"
 		},
+		"AzureBlobStorageFilterDemo_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorageFilterDemo'"
+		},
 		"AzureBlobStorage_csv_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage_csv'"
@@ -17,13 +21,13 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/FilterDemo')]",
+			"name": "[concat(parameters('factoryName'), '/FilterDemo1')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "LookupPlayer",
+						"name": "LookupFilterDemo",
 						"type": "Lookup",
 						"dependsOn": [],
 						"policy": {
@@ -50,7 +54,8 @@
 								"referenceName": "ds_player",
 								"type": "DatasetReference",
 								"parameters": {}
-							}
+							},
+							"firstRowOnly": false
 						}
 					},
 					{
@@ -58,7 +63,7 @@
 						"type": "Filter",
 						"dependsOn": [
 							{
-								"activity": "LookupPlayer",
+								"activity": "LookupFilterDemo",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -67,11 +72,11 @@
 						"userProperties": [],
 						"typeProperties": {
 							"items": {
-								"value": "@activity('LookupPlayer').output",
+								"value": "@activity('LookupFilterDemo').output.value",
 								"type": "Expression"
 							},
 							"condition": {
-								"value": "@contains(['Kohli'],item().Player)",
+								"value": "@or(equals(item().Player, 'Kohli'),equals(item().Player,'Sachin'))\n",
 								"type": "Expression"
 							}
 						}
@@ -233,6 +238,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
+						"fileName": "Carrer.csv",
 						"folderPath": "input",
 						"container": "sandeepcon"
 					},
@@ -307,6 +313,19 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/AzureBlobStorageFilterDemo')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureBlobStorageFilterDemo_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/AzureBlobStorage_csv')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -328,6 +347,58 @@
 				"typeProperties": {}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dataflow1')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "ds_player",
+								"type": "DatasetReference"
+							},
+							"name": "FilterAndWriteToCSV",
+							"description": "read and filter"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "Parquet1",
+								"type": "DatasetReference"
+							},
+							"name": "sink1"
+						}
+					],
+					"transformations": [
+						{
+							"name": "filter1"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          Player as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false) ~> FilterAndWriteToCSV",
+						"FilterAndWriteToCSV filter(in(['Kohli','sachin'],Player)) ~> filter1",
+						"filter1 sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     format: 'parquet',",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> sink1"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_player')]",
+				"[concat(variables('factoryId'), '/datasets/Parquet1')]"
+			]
 		}
 	]
 }
