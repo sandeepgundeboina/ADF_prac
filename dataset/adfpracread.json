@@ -1,0 +1,40 @@
+{
+	"name": "adfpracread",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "adfpracgetdata",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": "file_data",
+				"container": "sandeepcon"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "batch_id",
+				"type": "String"
+			},
+			{
+				"name": "batch_name",
+				"type": "String"
+			},
+			{
+				"name": "is_enabled",
+				"type": "String"
+			},
+			{
+				"name": "source_system",
+				"type": "String"
+			}
+		]
+	}
+}
