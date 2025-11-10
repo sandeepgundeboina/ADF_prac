@@ -110,11 +110,69 @@
 									"type": "DatasetReference"
 								}
 							]
+						},
+						{
+							"name": "data read",
+							"description": "data read",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "Copy dataForeachDemo",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "dataread",
+								"value": {
+									"value": "@activity('Copy dataForeachDemo').output.rowsRead",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "datawritten",
+							"description": "data writes",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "Copy dataForeachDemo",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "datawrite",
+								"value": {
+									"value": "@activity('Copy dataForeachDemo').output.rowsCopied",
+									"type": "Expression"
+								}
+							}
 						}
 					]
 				}
 			}
 		],
+		"variables": {
+			"dataread": {
+				"type": "Integer"
+			},
+			"datawrite": {
+				"type": "Integer"
+			}
+		},
 		"annotations": [],
 		"lastPublishTime": "2025-11-04T14:21:18Z"
 	},
