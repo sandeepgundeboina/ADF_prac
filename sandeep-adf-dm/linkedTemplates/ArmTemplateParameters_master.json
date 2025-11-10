@@ -11,6 +11,9 @@
 		"AzureBlobStorage_csv_connectionString": {
 			"value": ""
 		},
+		"adfpracgetdata_connectionString": {
+			"value": ""
+		},
 		"containerUri": {
 			"value": ""
 		},
