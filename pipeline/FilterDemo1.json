@@ -51,12 +51,18 @@
 						"type": "Expression"
 					},
 					"condition": {
-						"value": "@or(equals(item().Player, 'Kohli'),equals(item().Player,'Sachin'))\n",
+						"value": "@or(equals(item().Player,'Sachin'),equals(item().Player,pipeline().parameters.PlayerName))",
 						"type": "Expression"
 					}
 				}
 			}
 		],
+		"parameters": {
+			"PlayerName": {
+				"type": "string",
+				"defaultValue": "Ganguly"
+			}
+		},
 		"annotations": []
 	}
 }
