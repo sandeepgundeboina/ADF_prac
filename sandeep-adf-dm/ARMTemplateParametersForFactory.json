@@ -13,6 +13,9 @@
 		},
 		"adfpracgetdata_connectionString": {
 			"value": ""
+		},
+		"trigger1_properties_FilterDemo1_parameters_PlayerName": {
+			"value": "Kohli"
 		}
 	}
 }

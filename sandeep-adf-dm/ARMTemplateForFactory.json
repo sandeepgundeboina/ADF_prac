@@ -18,6 +18,10 @@
 		"adfpracgetdata_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'adfpracgetdata'"
+		},
+		"trigger1_properties_FilterDemo1_parameters_PlayerName": {
+			"type": "string",
+			"defaultValue": "Kohli"
 		}
 	},
 	"variables": {
@@ -80,7 +84,7 @@
 								"type": "Expression"
 							},
 							"condition": {
-								"value": "@or(equals(item().Player, 'Kohli'),equals(item().Player,'Sachin'))\n",
+								"value": "@or(equals(item().Player,'Sachin'),equals(item().Player,pipeline().parameters.PlayerName))",
 								"type": "Expression"
 							}
 						}
@@ -88,6 +92,12 @@
 				],
 				"policy": {
 					"elapsedTimeMetric": {}
+				},
+				"parameters": {
+					"PlayerName": {
+						"type": "string",
+						"defaultValue": "Ganguly"
+					}
 				},
 				"annotations": []
 			},
@@ -589,6 +599,53 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/trigger1')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "FilterDemo1",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"PlayerName": "[parameters('trigger1_properties_FilterDemo1_parameters_PlayerName')]"
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Month",
+						"interval": 1,
+						"startTime": "2025-11-10T12:42:00",
+						"endTime": "2025-11-11T13:06:40",
+						"timeZone": "India Standard Time",
+						"schedule": {
+							"minutes": [
+								0
+							],
+							"hours": [
+								1
+							],
+							"monthlyOccurrences": [
+								{
+									"day": "Sunday",
+									"occurrence": 1
+								}
+							]
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/FilterDemo1')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/IRSandeep')]",
