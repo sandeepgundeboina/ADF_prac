@@ -5,14 +5,35 @@
 		"factoryName": {
 			"value": "sandeep-adf-dm"
 		},
+		"AzureBlobStorage1_connectionString": {
+			"value": ""
+		},
 		"AzureBlobStorageFilterDemo_connectionString": {
 			"value": ""
 		},
 		"AzureBlobStorage_csv_connectionString": {
 			"value": ""
 		},
+		"AzureBlobStoragelog_connectionString": {
+			"value": ""
+		},
+		"AzureDatabricks1_accessToken": {
+			"value": ""
+		},
+		"Neon_password": {
+			"value": ""
+		},
 		"adfpracgetdata_connectionString": {
 			"value": ""
+		},
+		"Neon_properties_typeProperties_server": {
+			"value": "ep-summer-flower-a8ttwlet-pooler.eastus2.azure.neon.tech"
+		},
+		"Neon_properties_typeProperties_database": {
+			"value": "pet_adoption"
+		},
+		"Neon_properties_typeProperties_username": {
+			"value": "pet_adoption_owner"
 		},
 		"trigger1_properties_FilterDemo1_parameters_PlayerName": {
 			"value": "Kohli"

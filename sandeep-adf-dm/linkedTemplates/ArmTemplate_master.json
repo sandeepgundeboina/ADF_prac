@@ -7,6 +7,10 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "sandeep-adf-dm"
 		},
+		"AzureBlobStorage1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
+		},
 		"AzureBlobStorageFilterDemo_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorageFilterDemo'"
@@ -15,9 +19,33 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage_csv'"
 		},
+		"AzureBlobStoragelog_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStoragelog'"
+		},
+		"AzureDatabricks1_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'AzureDatabricks1'"
+		},
+		"Neon_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'Neon'"
+		},
 		"adfpracgetdata_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'adfpracgetdata'"
+		},
+		"Neon_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "ep-summer-flower-a8ttwlet-pooler.eastus2.azure.neon.tech"
+		},
+		"Neon_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "pet_adoption"
+		},
+		"Neon_properties_typeProperties_username": {
+			"type": "string",
+			"defaultValue": "pet_adoption_owner"
 		},
 		"trigger1_properties_FilterDemo1_parameters_PlayerName": {
 			"type": "string",
@@ -50,21 +78,62 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"AzureBlobStorage1_connectionString": {
+						"value": "[parameters('AzureBlobStorage1_connectionString')]"
+					},
 					"AzureBlobStorageFilterDemo_connectionString": {
 						"value": "[parameters('AzureBlobStorageFilterDemo_connectionString')]"
 					},
 					"AzureBlobStorage_csv_connectionString": {
 						"value": "[parameters('AzureBlobStorage_csv_connectionString')]"
 					},
+					"AzureBlobStoragelog_connectionString": {
+						"value": "[parameters('AzureBlobStoragelog_connectionString')]"
+					},
+					"AzureDatabricks1_accessToken": {
+						"value": "[parameters('AzureDatabricks1_accessToken')]"
+					},
+					"Neon_password": {
+						"value": "[parameters('Neon_password')]"
+					},
 					"adfpracgetdata_connectionString": {
 						"value": "[parameters('adfpracgetdata_connectionString')]"
+					},
+					"Neon_properties_typeProperties_server": {
+						"value": "[parameters('Neon_properties_typeProperties_server')]"
+					},
+					"Neon_properties_typeProperties_database": {
+						"value": "[parameters('Neon_properties_typeProperties_database')]"
+					},
+					"Neon_properties_typeProperties_username": {
+						"value": "[parameters('Neon_properties_typeProperties_username')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "sandeep-adf-dm_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
 					},
 					"trigger1_properties_FilterDemo1_parameters_PlayerName": {
 						"value": "[parameters('trigger1_properties_FilterDemo1_parameters_PlayerName')]"
 					}
 				}
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'sandeep-adf-dm_ArmTemplate_0')]"
+			]
 		}
 	]
 }
