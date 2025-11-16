@@ -1,0 +1,19 @@
+{
+	"name": "Json2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStoragelog",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": "NeonDB_logs",
+				"container": "sandeepcon"
+			}
+		},
+		"schema": {}
+	}
+}
