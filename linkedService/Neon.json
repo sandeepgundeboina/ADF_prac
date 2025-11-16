@@ -1,0 +1,18 @@
+{
+	"name": "Neon",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "Copy  Pet data",
+		"annotations": [],
+		"type": "PostgreSqlV2",
+		"typeProperties": {
+			"server": "ep-summer-flower-a8ttwlet-pooler.eastus2.azure.neon.tech",
+			"port": 5432,
+			"database": "pet_adoption",
+			"username": "pet_adoption_owner",
+			"sslMode": 2,
+			"authenticationType": "Basic",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDYzMzZGQUQ2LTFCQzItNDk0Ni1BM0Y1LTUyMTNGMzVCRTg0MF83OWFlY2Y2Yy03MjEwLTQzZjMtOWM0MC0xMzBkNTQ0YWQ0NjMiDQp9"
+		}
+	}
+}
